@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uFundi AI - Making South African Teachers Fall in Love with Lesson Planning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #fef3c7 50%, #fce7f3 100%);
+            color: #1f2937;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            font-family: 'Righteous', cursive;
+            text-transform: lowercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-links a, .nav-dropdown > span {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-dropdown > span:hover {
+            color: #10b981;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 250px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 1rem 0;
+            margin-top: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: #374151;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: #f0fdf4;
+            color: #10b981;
+        }
+
+        .btn-trial {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-trial:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5rem 3rem 3rem;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #374151;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .give-it-a-go {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 2rem;
+        }
+
+        .give-it-a-go span {
+            font-size: 1.8rem;
+        }
+
+        /* Input Section */
+        .input-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .selection-step {
+            margin-bottom: 1.5rem;
+        }
+
+        .selection-step:last-of-type {
+            margin-bottom: 2rem;
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .dropdown-select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.2s;
+            background: white;
+            cursor: pointer;
+            color: #1f2937;
+        }
+
+        .dropdown-select:hover {
+            border-color: #d1d5db;
+        }
+
+        .dropdown-select:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .dropdown-select:disabled {
+            background: #f9fafb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .dropdown-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .material-type-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .material-type-btn {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .material-type-btn:hover {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .material-type-btn.active {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-color: #10b981;
+            color: white;
+        }
+
+        .material-type-btn i {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .material-type-btn span {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .btn-generate {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-generate:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-generate:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-generate i {
+            font-size: 1.2rem;
+        }
+
+        .topic-preview {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .topic-preview.active {
+            display: block;
+        }
+
+        .topic-preview-label {
+            font-size: 0.8rem;
+            color: #059669;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .topic-preview-text {
+            font-size: 1rem;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .differentiation-selector {
+            background: #f0f9ff;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border: 2px solid #3b82f6;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-option span {
+            color: #374151;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Preview Cards */
+        .preview-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            padding: 0 1rem;
+        }
+
+        .preview-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
+        }
+
+        .preview-card:nth-child(2) {
+            transform: rotate(1deg);
+        }
+
+        .preview-card:nth-child(3) {
+            transform: rotate(-1deg);
+        }
+
+        .preview-card:hover {
+            transform: rotate(0deg) translateY(-10px);
+        }
+
+        .preview-card-inner {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            min-height: 180px;
+            max-height: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            overflow: hidden;
+        }
+
+        .preview-card:nth-child(1) .preview-card-inner {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+
+        .preview-card:nth-child(2) .preview-card-inner {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+
+        .preview-card:nth-child(3) .preview-card-inner {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+
+        .preview-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .preview-card p {
+            color: #6b7280;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .preview-card p strong {
+            color: #4b5563;
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        /* Features Grid */
+        .features-section {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 3rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: #111827;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+            margin-bottom: 1.5rem;
+            width: 70px;
+            height: 70px;
+        }
+
+        .feature-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        /* Worksheet Examples */
+        .worksheets-section {
+            background: white;
+            padding: 5rem 3rem;
+            margin: 5rem 0;
+        }
+
+        .worksheets-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .worksheet-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .worksheet-example {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .worksheet-example:nth-child(2) {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+
+        .worksheet-example:nth-child(3) {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+
+        .worksheet-example:nth-child(4) {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        }
+
+        .worksheet-example:hover {
+            transform: translateY(-10px);
+        }
+
+        .worksheet-preview {
+            background: white;
+            height: 250px;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        .worksheet-preview img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+
+        .worksheet-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .worksheet-meta {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        /* Pricing */
+        .pricing-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 3rem;
+        }
+
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            background: #f3f4f6;
+            padding: 0.5rem;
+            border-radius: 50px;
+            max-width: 300px;
+            margin: 0 auto 3rem;
+        }
+
+        .toggle-option {
+            flex: 1;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .toggle-option.active {
+            background: white;
+            color: #111827;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .save-badge {
+            background: #10b981;
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid #10b981;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+        }
+
+        .pricing-card.schools {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #3b82f6;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #f59e0b;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .plan-subtitle {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-price-wrapper {
+            margin-bottom: 1.5rem;
+            min-height: 50px;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .plan-period {
+            font-size: 1rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            padding: 0.6rem 0;
+            color: #374151;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .checkmark {
+            color: #10b981;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .btn-plan {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-plan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-plan-secondary {
+            background: white;
+            color: #10b981;
+            border: 2px solid #10b981;
+            box-shadow: none;
+        }
+
+        .btn-plan-secondary:hover {
+            background: #10b981;
+            color: white;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #10b981;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            border: 2px solid white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #1e293b;
+        }
+
+        /* Export Section */
+        .export-section {
+            background: #f9fafb;
+            padding: 5rem 3rem;
+        }
+
+        .export-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .export-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .export-content p {
+            font-size: 1.1rem;
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .btn-try {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-try:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .export-visual {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .export-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 140px;
+            text-align: center;
+            transition: transform 0.3s;
+            color: white;
+        }
+
+        .export-card:nth-child(1) {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+        .export-card:nth-child(2) {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        }
+
+        .export-card:nth-child(3) {
+            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        }
+
+        .export-card:hover {
+            transform: translateY(-10px) rotate(3deg);
+        }
+
+        .export-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .export-card span {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Unique Section */
+        .unique-section {
+            padding: 5rem 3rem;
+            background: white;
+        }
+
+        .unique-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .section-tag {
+            color: #f59e0b;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .unique-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .unique-content p {
+            font-size: 1.1rem;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .sample-material {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transform: rotate(-3deg);
+            transition: transform 0.3s;
+        }
+
+        .sample-material:hover {
+            transform: rotate(0deg);
+        }
+
+        .material-header {
+            padding: 1.5rem;
+            color: white;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .material-header h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .material-content {
+            padding: 2rem;
+            background: white;
+        }
+
+        .fill-blank {
+            background: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            margin: 1rem 0;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 5rem 3rem;
+        }
+
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .reviews-subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            color: #374151;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .reviewer-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .reviewer-name {
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.2rem;
+        }
+
+        .reviewer-title {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 3rem;
+            background: white;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+
+        .faq-category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-item {
+            background: #f9fafb;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active {
+            background: #e0f2fe;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #111827;
+            user-select: none;
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            color: #10b981;
+            font-weight: 300;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #6b7280;
+            line-height: 1.7;
+            display: none;
+        }
+
+        .faq-footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .faq-footer-tag {
+            color: #ec4899;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-footer h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-contact {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            padding: 5rem 3rem;
+            text-align: center;
+            color: white;
+        }
+
+        .feedback-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feedback-tag {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .feedback-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+        }
+
+        .btn-feedback {
+            background: white;
+            color: #d97706;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 12px rgba(255,255,255,0.3);
+        }
+
+        .btn-feedback:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(255,255,255,0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            padding: 4rem 3rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-family: 'Righteous', cursive;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: #10b981;
+            transform: translateY(-3px);
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #10b981;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .preview-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-card {
+                transform: rotate(0deg);
+            }
+
+            .material-type-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .export-container,
+            .unique-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .worksheet-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .give-it-a-go {
+                font-size: 1.5rem;
+            }
+
+            .dropdown-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .material-type-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .export-content h2,
+            .unique-content h2 {
+                font-size: 2rem;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .worksheet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2,
+            .feedback-section h2 {
+                font-size: 2rem;
+            }
+
+            .faq-footer h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">uFundi AI</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#worksheets">Examples</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li class="nav-dropdown">
+                    <span>Product <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 0.3rem;"></i></span>
+                    <div class="dropdown-content">
+                        <a href="faq.html">FAQ</a>
+                        <a href="ai-limitations.html">AI Limitations & Best Practices</a>
+                    </div>
+                </li>
+            </ul>
+            <button class="btn-trial" onclick="window.location.href='signup.html'">Try for FREE</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span>Instant</span> Lesson Planning</h1>
+            <p class="hero-subtitle">Standards-aligned learning materials, designed by you and generated by AI</p>
+            
+            <h2 class="give-it-a-go">Generate Your CAPS-Aligned Material <span>✨</span></h2>
+
+            <div class="input-container">
+                <!-- Step 1: Phase -->
+                <div class="selection-step">
+                    <label class="step-label">
+                        <span class="step-number">1</span>
+                        Select Phase
+                    </label>
+                    <select id="phaseSelect" class="dropdown-select">
+                        <option value="">Choose a phase...</option>
+                        <option value="foundation">Foundation Phase (Grade R-3)</option>
+                        <option value="intermediate">Intermediate Phase (Grade 4-6)</option>
+                        <option value="senior">Senior Phase (Grade 7-9)</option>
+                        <option value="fet">FET Phase (Grade 10-12)</option>
+                    </select>
+                </div>
+
+                <!-- Step 2: Grade -->
+                <div class="selection-step">
+                    <label class="step-label">
+                        <span class="step-number">2</span>
+                        Select Grade
+                    </label>
+                    <select id="gradeSelect" class="dropdown-select" disabled>
+                        <option value="">First select a phase...</option>
+                    </select>
+                </div>
+
+                <!-- Step 3: Subject and Term (side by side) -->
+                <div class="dropdown-grid">
+                    <div class="selection-step">
+                        <label class="step-label">
+                            <span class="step-number">3</span>
+                            Subject
+                        </label>
+                        <select id="subjectSelect" class="dropdown-select" disabled>
+                            <option value="">Select grade first...</option>
+                        </select>
+                    </div>
+
+                    <div class="selection-step">
+                        <label class="step-label">
+                            <span class="step-number">4</span>
+                            Term
+                        </label>
+                        <select id="termSelect" class="dropdown-select" disabled>
+                            <option value="">Select subject first...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Step 4: Week and Language (side by side) -->
+                <div class="dropdown-grid">
+                    <div class="selection-step">
+                        <label class="step-label">
+                            <span class="step-number">5</span>
+                            ATP Week
+                            <span class="info-badge">📅 Week-by-week</span>
+                        </label>
+                        <select id="weekSelect" class="dropdown-select" disabled>
+                            <option value="">Select term first...</option>
+                        </select>
+                    </div>
+
+                    <div class="selection-step">
+                        <label class="step-label">
+                            <span class="step-number">6</span>
+                            Language
+                        </label>
+                        <select id="languageSelect" class="dropdown-select">
+                            <option value="english">English</option>
+                            <option value="afrikaans">Afrikaans</option>
+                            <option value="isizulu">isiZulu</option>
+                            <option value="isixhosa">isiXhosa</option>
+                            <option value="sepedi">Sepedi</option>
+                            <option value="setswana">Setswana</option>
+                            <option value="sesotho">Sesotho</option>
+                            <option value="xitsonga">Xitsonga</option>
+                            <option value="siswati">siSwati</option>
+                            <option value="tshivenda">Tshivenda</option>
+                            <option value="isindebele">isiNdebele</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Topic Preview -->
+                <div id="topicPreview" class="topic-preview">
+                    <div class="topic-preview-label">SELECTED TOPIC</div>
+                    <div class="topic-preview-text" id="topicPreviewText"></div>
+                </div>
+
+                <!-- Step 5: Material Type Selection -->
+                <div class="selection-step">
+                    <label class="step-label">
+                        <span class="step-number">7</span>
+                        What do you want to generate?
+                    </label>
+                    <div class="material-type-selector">
+                        <button type="button" class="material-type-btn active" data-type="lesson">
+                            <i>📝</i>
+                            <span>Lesson Plan</span>
+                        </button>
+                        <button type="button" class="material-type-btn" data-type="worksheet">
+                            <i>📄</i>
+                            <span>Worksheet</span>
+                        </button>
+                        <button type="button" class="material-type-btn" data-type="presentation">
+                            <i>📊</i>
+                            <span>PPT Slides</span>
+                        </button>
+                        <button type="button" class="material-type-btn" data-type="assessment">
+                            <i>✅</i>
+                            <span>Assessment</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Differentiation Option (only for worksheets) -->
+                <div id="differentiationOption" class="selection-step" style="display: none;">
+                    <label class="step-label">
+                        <span class="step-number">8</span>
+                        Differentiation
+                        <span class="info-badge">📚 Multiple levels</span>
+                    </label>
+                    <div class="differentiation-selector">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="generateMultiple">
+                            <span>Generate multiple versions for different learner needs (Support, Core, Extension)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button id="generateBtn" class="btn-generate" disabled>
+                    <i>✨</i>
+                    <span>Generate Material</span>
+                </button>
+            </div>
+
+            <div class="preview-cards">
+                <div class="preview-card">
+                    <div class="preview-card-inner">
+                        <h3>Origins of the Mongol Empire</h3>
+                        <p><strong>Nomadic Warriors</strong>
+                        The Mongols were skilled horsemen and archers, living in clans on the harsh grasslands.</p>
+                        <p><strong>Ancient Conflict</strong>
+                        The Mongols fought each other, making...</p>
+                    </div>
+                </div>
+
+                <div class="preview-card">
+                    <div class="preview-card-inner">
+                        <h3>The Human Heart: Knowledge Check</h3>
+                        <p>The heart has four chambers: the right and left atria which receive blood from the body and lungs, and the right and left...</p>
+                        <p><strong>Key Functions:</strong>
+                        Chambers, Valves, and blood circulation through the heart and lungs.</p>
+                    </div>
+                </div>
+
+                <div class="preview-card">
+                    <div class="preview-card-inner">
+                        <h3>Osmosis vs Diffusion</h3>
+                        <div style="display: flex; gap: 1rem; margin-top: 0.75rem;">
+                            <div style="flex: 1; text-align: center;">
+                                <div style="background: white; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.5rem;">
+                                    <div style="font-size: 1.75rem;">💧</div>
+                                </div>
+                                <p style="font-size: 0.75rem; font-weight: 600; margin: 0;">Osmosis</p>
+                            </div>
+                            <div style="flex: 1; text-align: center;">
+                                <div style="background: white; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.5rem;">
+                                    <div style="font-size: 1.75rem;">🔴</div>
+                                </div>
+                                <p style="font-size: 0.75rem; font-weight: 600; margin: 0;">Diffusion</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <h2 class="section-title">Adaptive Learning Made Easy</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=JJLQZlRsijYbgqPVG3A9FRQ14VFmFl5G2Hv4LJSxK0pJmg6%2BCkrL3o%2BOhTEAoFeu6HFpX%2Fc%3D&u2=TUOZIzB60d3fSmlO&width=2560" alt="Book icon">
+                </div>
+                <h3>100% CAPS & ATP Aligned</h3>
+                <p>Every lesson, worksheet, and assessment follows the official South African curriculum. No more worrying if you're covering the right content.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=227wKqcORptBHnLNSoH4tlNiYDUtSISgW25hXecRVIy0y9EaHAa0dIooLDnN8d99me2HZSPYdamiYwz6EpwDZEYIJk4v5NVtFn6zUQ%2BWQWsSVgH7Jdw4u2rEdkMF5gJujvSWZbqGyIwSJR%2BICEkDyBNVinIlcVYicR0CGjy2k%2FQ%3D&u2=rd0wIcktCgjnpjBV&width=2560" alt="Languages icon">
+                </div>
+                <h3>All 11 SA Languages</h3>
+                <p>Generate lessons in English, Afrikaans, isiZulu, isiXhosa, Sepedi, Setswana, Sesotho, and all official South African languages.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=FRy5sncqN9sqQNtsLa7mm3DOPEzDqT9D8bTA%2BLqLU8iiIHZfKCOSiEBATtowERQR8AA1gf7ZmzZzF0S6hEI8L0jz76Dp8lxEsp2RmHTLJQ%3D%3D&u2=fsK9OfdQTTPSG%2Bgn&width=2560" alt="AI icon">
+                </div>
+                <h3>AI-Powered Generation</h3>
+                <p>Type any topic and get complete lessons with presentations, worksheets, and marking memos in under 30 seconds.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=ccSM80kT8f7XcqxZH9RTQ1lXtqFIy8Z%2FolSblqC0zxESOE1cOvk8NWnqFMBptA3vhieouLVgT79qAu8wr%2FABu3ZNwOVlihicitR4e8O3am%2F7o7OK1C8y2fDLReBojNkp9etMUoIF1KS7azZsmjZc42eQ0LshAGeniY7vA4XIkl6Z&u2=cOSFBoDW3rAIBw8w&width=2560" alt="Charts icon">
+                </div>
+                <h3>Beautiful Presentations</h3>
+                <p>Stunning slide decks with visuals, diagrams, and images. Export to PowerPoint, Google Slides, or PDF.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=HBzTFbADsD2HkKd9dXxfccFfRgM8f1O6MQJ4A3XbNEkc3Hzfy5X2ZLaAAZkNJUeAZWEay%2FQZKr4bAcHL1lddIQhF33Jm6hD0IT1o6xsrtTS7XpVqX3%2FJ5UodPHVFtmMc00BjeU9L8y7rQrbRyFrgFjGSsD8bb33j%2F14%3D&u2=Ed87HeVeS7A7gb0y&width=2560" alt="Worksheets icon">
+                </div>
+                <h3>Complete Worksheets</h3>
+                <p>Print-ready worksheets with marking memorandums, rubrics, and differentiation for all ability levels.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://sspark.genspark.ai/cfimages?u1=xMrwVR88J2Dmo%2F5uqhV8w%2B25I7H7BKUhWpelaaRrWi2M%2BPNFMeJtn8Xp7VJ7dlAH9Mw6F0Y4bJGFrzrrBh62wUedLyoL1nMHksbF0bHpD68%3D&u2=pepgLmCY564CdaQP&width=2560" alt="Reports icon">
+                </div>
+                <h3>Report Comments</h3>
+                <p>Generate professional, constructive report card comments based on learner performance instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Worksheets Examples -->
+    <section class="worksheets-section" id="worksheets">
+        <div class="worksheets-container">
+            <h2 class="section-title">Cultivate Thinking Skills from All Aspects</h2>
+            
+            <div class="worksheet-grid">
+                <div class="worksheet-example">
+                    <div class="worksheet-preview">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=JJLQZlRsijYbgqPVG3A9FRQ14VFmFl5G2Hv4LJSxK0pJmg6%2BCkrL3o%2BOhTEAoFeu6HFpX%2Fc%3D&u2=TUOZIzB60d3fSmlO&width=2560" alt="Mathematics worksheet">
+                    </div>
+                    <div class="worksheet-info">
+                        <h4>Mathematics Grade 5</h4>
+                        <p class="worksheet-meta">Fractions • Term 1 • ATP Week 3-4</p>
+                    </div>
+                </div>
+
+                <div class="worksheet-example">
+                    <div class="worksheet-preview">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=xMrwVR88J2Dmo%2F5uqhV8w%2B25I7H7BKUhWpelaaRrWi2M%2BPNFMeJtn8Xp7VJ7dlAH9Mw6F0Y4bJGFrzrrBh62wUedLyoL1nMHksbF0bHpD68%3D&u2=pepgLmCY564CdaQP&width=2560" alt="Natural Sciences worksheet">
+                    </div>
+                    <div class="worksheet-info">
+                        <h4>Natural Sciences</h4>
+                        <p class="worksheet-meta">Food Chains • Grade 7 • CAPS Aligned</p>
+                    </div>
+                </div>
+
+                <div class="worksheet-example">
+                    <div class="worksheet-preview">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=FRy5sncqN9sqQNtsLa7mm3DOPEzDqT9D8bTA%2BLqLU8iiIHZfKCOSiEBATtowERQR8AA1gf7ZmzZzF0S6hEI8L0jz76Dp8lxEsp2RmHTLJQ%3D%3D&u2=fsK9OfdQTTPSG%2Bgn&width=2560" alt="Life Sciences worksheet">
+                    </div>
+                    <div class="worksheet-info">
+                        <h4>Life Sciences</h4>
+                        <p class="worksheet-meta">Human Heart • Grade 11 • Full Lesson</p>
+                    </div>
+                </div>
+
+                <div class="worksheet-example">
+                    <div class="worksheet-preview">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=HBzTFbADsD2HkKd9dXxfccFfRgM8f1O6MQJ4A3XbNEkc3Hzfy5X2ZLaAAZkNJUeAZWEay%2FQZKr4bAcHL1lddIQhF33Jm6hD0IT1o6xsrtTS7XpVqX3%2FJ5UodPHVFtmMc00BjeU9L8y7rQrbRyFrgFjGSsD8bb33j%2F14%3D&u2=Ed87HeVeS7A7gb0y&width=2560" alt="Creative Arts worksheet">
+                    </div>
+                    <div class="worksheet-info">
+                        <h4>Creative Arts</h4>
+                        <p class="worksheet-meta">Dance & Movement • Grade 4 • Term 1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Transform Your Lesson Planning?</h2>
+        <p>Join thousands of South African teachers saving hours every week</p>
+        <div class="cta-buttons">
+            <button class="btn-primary" onclick="window.location.href='signup.html'">Start Free Trial</button>
+            <button class="btn-secondary" onclick="window.location.href='#features'">Watch Demo</button>
+        </div>
+    </section>
+
+    <!-- Export Section -->
+    <section class="export-section">
+        <div class="export-container">
+            <div class="export-content">
+                <h2>Edit and present your lessons in UfundiAI or your tool of choice.</h2>
+                <p>We know teachers and schools often have their own preferences when it comes to technology. Edit and teach your lessons in UfundiAI or you can export to PowerPoint, Google Slides or PDF with the click of a button.</p>
+                <button class="btn-try" onclick="window.location.href='signup.html'">Try UfundiAI for free</button>
+            </div>
+            <div class="export-visual">
+                <div class="export-card">
+                    <div class="export-icon">📊</div>
+                    <span>PowerPoint</span>
+                </div>
+                <div class="export-card">
+                    <div class="export-icon">📑</div>
+                    <span>Slides</span>
+                </div>
+                <div class="export-card">
+                    <div class="export-icon">📄</div>
+                    <span>PDF</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unique Content Section -->
+    <section class="unique-section">
+        <div class="unique-container">
+            <div class="unique-visual">
+                <div class="sample-material">
+                    <div class="material-header">
+                        <h4>The Great Trek</h4>
+                    </div>
+                    <div class="material-content">
+                        <p><strong>Fill in the blanks ✍️</strong></p>
+                        <div class="fill-blank">
+                            <p>The colonists demanded ________ taxes paid by British colonists from the ________ which they believed violated their rights.</p>
+                        </div>
+                        <p style="font-size: 0.8rem; margin-top: 1rem;"><strong>Word bank:</strong> unfair, wages, freedom, independence, representation</p>
+                    </div>
+                </div>
+            </div>
+            <div class="unique-content">
+                <p class="section-tag">Resources made for your class</p>
+                <h2>Unique lessons and activities for your students</h2>
+                <p>UfundiAI materials are generated by you, so they're unique every time. Forget the cookie-cutter content. Create lessons tailored to your class based on any topic and at any level you need. All in a moment. ✨</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teacher Reviews Section -->
+    <section class="reviews-section">
+        <div class="reviews-container">
+            <h2 class="section-title">Loved by Teachers Across South Africa</h2>
+            <p class="reviews-subtitle">See what educators are saying about UfundiAI</p>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"UfundiAI has completely transformed my lesson planning. What used to take me 3-4 hours now takes 15 minutes. The CAPS alignment is perfect!"</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">TM</div>
+                        <div class="reviewer-info">
+                            <p class="reviewer-name">Thandi Mthembu</p>
+                            <p class="reviewer-title">Grade 5 Teacher, Johannesburg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"The ATP week-by-week structure is brilliant! I always know I'm exactly where I need to be in the curriculum. My principal loves it too."</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">PV</div>
+                        <div class="reviewer-info">
+                            <p class="reviewer-name">Pieter van Wyk</p>
+                            <p class="reviewer-title">Mathematics Teacher, Cape Town</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Being able to generate materials in isiZulu has been a game-changer for my learners. They engage so much more when content is in their home language."</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">NM</div>
+                        <div class="reviewer-info">
+                            <p class="reviewer-name">Nomsa Dlamini</p>
+                            <p class="reviewer-title">Grade 7 Teacher, Durban</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"The quality of the assessments is outstanding. The marking memos are detailed and save me hours. I can focus more on actual teaching now."</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">SM</div>
+                        <div class="reviewer-info">
+                            <p class="reviewer-name">Sarah Molefe</p>
+                            <p class="reviewer-title">Life Sciences Teacher, Pretoria</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"As a new teacher, UfundiAI has been my lifesaver. It's like having a mentor guiding me through every topic with ready-made, professional materials."</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">LN</div>
+                        <div class="reviewer-info">
+                            <p class="reviewer-name">Lerato Nhlapo</p>
+                            <p class="reviewer-title">Grade 4 Teacher, Bloemfontein</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Our entire school uses UfundiAI now. The consistency across grades and the time saved is incredible. Best investment we've made!"</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">JB</div>
+                        <div class="reviewer-info">
+                            <p class="reviewer-name">James Botha</p>
+                            <p class="reviewer-title">Deputy Principal, Port Elizabeth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback CTA Section -->
+    <section class="feedback-section">
+        <div class="feedback-container">
+            <p class="feedback-tag">Want to get in touch?</p>
+            <h2>We're working really hard to improve UfundiAI. We'd love to hear your feedback</h2>
+            <button class="btn-feedback">Tell us what you think</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>uFundi AI</h3>
+                <p>AI-powered CAPS & ATP aligned lesson planning for South African teachers. Save hours every week.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="ai-limitations.html">AI Limitations & Best Practices</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Video Tutorials</a></li>
+                    <li><a href="#">ATP Guide</a></li>
+                    <li><a href="#">Languages</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 uFundi AI. Made with love for South African teachers.</p>
+        </div>
+    </footer>
+
+    <script>
+        // CAPS Curriculum Data Structure
+        const curriculumData = {
+            foundation: {
+                name: 'Foundation Phase',
+                grades: {
+                    'grade-r': { name: 'Grade R', subjects: ['Life Skills', 'Mathematics', 'Language'] },
+                    'grade-1': { name: 'Grade 1', subjects: ['Life Skills', 'Mathematics', 'Home Language', 'First Additional Language'] },
+                    'grade-2': { name: 'Grade 2', subjects: ['Life Skills', 'Mathematics', 'Home Language', 'First Additional Language'] },
+                    'grade-3': { name: 'Grade 3', subjects: ['Life Skills', 'Mathematics', 'Home Language', 'First Additional Language'] }
+                }
+            },
+            intermediate: {
+                name: 'Intermediate Phase',
+                grades: {
+                    'grade-4': { name: 'Grade 4', subjects: ['Mathematics', 'Home Language', 'First Additional Language', 'Natural Sciences', 'Social Sciences', 'Life Skills'] },
+                    'grade-5': { name: 'Grade 5', subjects: ['Mathematics', 'Home Language', 'First Additional Language', 'Natural Sciences', 'Social Sciences', 'Life Skills'] },
+                    'grade-6': { name: 'Grade 6', subjects: ['Mathematics', 'Home Language', 'First Additional Language', 'Natural Sciences', 'Social Sciences', 'Life Skills'] }
+                }
+            },
+            senior: {
+                name: 'Senior Phase',
+                grades: {
+                    'grade-7': { name: 'Grade 7', subjects: ['Mathematics', 'Home Language', 'First Additional Language', 'Natural Sciences', 'Social Sciences', 'Technology', 'Economic Management Sciences', 'Life Orientation', 'Creative Arts'] },
+                    'grade-8': { name: 'Grade 8', subjects: ['Mathematics', 'Home Language', 'First Additional Language', 'Natural Sciences', 'Social Sciences', 'Technology', 'Economic Management Sciences', 'Life Orientation', 'Creative Arts'] },
+                    'grade-9': { name: 'Grade 9', subjects: ['Mathematics', 'Home Language', 'First Additional Language', 'Natural Sciences', 'Social Sciences', 'Technology', 'Economic Management Sciences', 'Life Orientation', 'Creative Arts'] }
+                }
+            },
+            fet: {
+                name: 'FET Phase',
+                grades: {
+                    'grade-10': { name: 'Grade 10', subjects: ['Mathematics', 'Mathematical Literacy', 'Home Language', 'First Additional Language', 'Life Sciences', 'Physical Sciences', 'Accounting', 'Business Studies', 'Economics', 'Geography', 'History', 'Life Orientation'] },
+                    'grade-11': { name: 'Grade 11', subjects: ['Mathematics', 'Mathematical Literacy', 'Home Language', 'First Additional Language', 'Life Sciences', 'Physical Sciences', 'Accounting', 'Business Studies', 'Economics', 'Geography', 'History', 'Life Orientation'] },
+                    'grade-12': { name: 'Grade 12', subjects: ['Mathematics', 'Mathematical Literacy', 'Home Language', 'First Additional Language', 'Life Sciences', 'Physical Sciences', 'Accounting', 'Business Studies', 'Economics', 'Geography', 'History', 'Life Orientation'] }
+                }
+            }
+        };
+
+        // Sample ATP topics (this would come from a comprehensive database)
+        const atpTopics = {
+            'Mathematics': {
+                'grade-5': {
+                    'term-1': {
+                        'week-1': 'Whole numbers: Count, order, compare, represent',
+                        'week-2': 'Whole numbers: Addition and subtraction',
+                        'week-3': 'Common fractions: Recognize and identify',
+                        'week-4': 'Common fractions: Compare and order',
+                        'week-5': 'Decimal fractions: Recognize tenths and hundredths',
+                        'week-6': 'Number patterns',
+                        'week-7': 'Input and output values',
+                        'week-8': 'Geometric patterns',
+                        'week-9': '2D shapes and 3D objects',
+                        'week-10': 'Transformations and symmetry'
+                    },
+                    'term-2': {
+                        'week-1': 'Whole numbers: Multiplication',
+                        'week-2': 'Whole numbers: Division',
+                        'week-3': 'Properties of whole numbers',
+                        'week-4': 'Common fractions: Addition and subtraction',
+                        'week-5': 'Decimal fractions: Place value',
+                        'week-6': 'Length and perimeter',
+                        'week-7': 'Mass and capacity',
+                        'week-8': 'Time and temperature',
+                        'week-9': 'Data handling: Collect and organize',
+                        'week-10': 'Data handling: Represent and interpret'
+                    },
+                    'term-3': {
+                        'week-1': 'Number sentences',
+                        'week-2': 'Common fractions: Equivalent forms',
+                        'week-3': 'Decimal fractions: Addition and subtraction',
+                        'week-4': 'Percentage: Introduction',
+                        'week-5': 'Ratio and rate',
+                        'week-6': 'Area and perimeter',
+                        'week-7': 'Volume and capacity',
+                        'week-8': 'Probability: Simple experiments',
+                        'week-9': 'Graphs: Bar and pie charts',
+                        'week-10': 'Revision and consolidation'
+                    },
+                    'term-4': {
+                        'week-1': 'Whole numbers: Problem solving',
+                        'week-2': 'Common fractions: Problem solving',
+                        'week-3': 'Decimal fractions: Problem solving',
+                        'week-4': 'Measurement: Problem solving',
+                        'week-5': 'Geometry: Properties of shapes',
+                        'week-6': 'Data handling: Interpretation',
+                        'week-7': 'Mixed problem solving',
+                        'week-8': 'Revision: Term 1 & 2',
+                        'week-9': 'Revision: Term 3 & 4',
+                        'week-10': 'Final assessments'
+                    }
+                }
+            },
+            'Natural Sciences': {
+                'grade-7': {
+                    'term-1': {
+                        'week-1': 'Cells as basic units of life',
+                        'week-2': 'Cell structure and function',
+                        'week-3': 'Animal cells vs plant cells',
+                        'week-4': 'Systems in the human body',
+                        'week-5': 'Digestive system',
+                        'week-6': 'Respiratory system',
+                        'week-7': 'Circulatory system',
+                        'week-8': 'Photosynthesis',
+                        'week-9': 'Respiration in plants',
+                        'week-10': 'Revision and assessment'
+                    },
+                    'term-2': {
+                        'week-1': 'Sources of energy',
+                        'week-2': 'Potential and kinetic energy',
+                        'week-3': 'Energy transfers',
+                        'week-4': 'Heat energy and temperature',
+                        'week-5': 'Thermal conductivity',
+                        'week-6': 'Insulation and energy saving',
+                        'week-7': 'Mixtures and pure substances',
+                        'week-8': 'Separating mixtures',
+                        'week-9': 'Solutions and concentration',
+                        'week-10': 'Revision and assessment'
+                    },
+                    'term-3': {
+                        'week-1': 'The particle model of matter',
+                        'week-2': 'States of matter',
+                        'week-3': 'Changes of state',
+                        'week-4': 'Density and floating',
+                        'week-5': 'The water cycle',
+                        'week-6': 'Food chains and food webs',
+                        'week-7': 'Energy flow in ecosystems',
+                        'week-8': 'Biodiversity',
+                        'week-9': 'Conservation',
+                        'week-10': 'Revision and assessment'
+                    },
+                    'term-4': {
+                        'week-1': 'The solar system',
+                        'week-2': 'The Earth and Moon',
+                        'week-3': 'Day and night, seasons',
+                        'week-4': 'Forces: Gravity and friction',
+                        'week-5': 'Forces: Springs and elasticity',
+                        'week-6': 'Forces: Pressure',
+                        'week-7': 'Electricity and magnetism',
+                        'week-8': 'Revision: All topics',
+                        'week-9': 'Revision: All topics',
+                        'week-10': 'Final assessments'
+                    }
+                }
+            },
+            'Life Sciences': {
+                'grade-11': {
+                    'term-1': {
+                        'week-1': 'Chemistry of life: Organic molecules',
+                        'week-2': 'Biological molecules: Carbohydrates',
+                        'week-3': 'Biological molecules: Proteins',
+                        'week-4': 'Biological molecules: Lipids',
+                        'week-5': 'Enzymes and their functions',
+                        'week-6': 'Cell structure and function',
+                        'week-7': 'Cell division: Mitosis',
+                        'week-8': 'Cell division: Meiosis',
+                        'week-9': 'DNA structure and replication',
+                        'week-10': 'Revision and assessment'
+                    },
+                    'term-2': {
+                        'week-1': 'Animal tissues',
+                        'week-2': 'Plant tissues',
+                        'week-3': 'Support and transport: Animals',
+                        'week-4': 'The human heart structure',
+                        'week-5': 'Blood circulation and vessels',
+                        'week-6': 'Blood composition and functions',
+                        'week-7': 'Lymphatic system',
+                        'week-8': 'Support and transport: Plants',
+                        'week-9': 'Xylem and phloem',
+                        'week-10': 'Revision and assessment'
+                    },
+                    'term-3': {
+                        'week-1': 'Gaseous exchange: Animals',
+                        'week-2': 'Human respiratory system',
+                        'week-3': 'Breathing mechanism',
+                        'week-4': 'Gaseous exchange: Plants',
+                        'week-5': 'Excretion: Animals',
+                        'week-6': 'Human urinary system',
+                        'week-7': 'Kidney structure and function',
+                        'week-8': 'Excretion: Plants',
+                        'week-9': 'Population ecology',
+                        'week-10': 'Revision and assessment'
+                    },
+                    'term-4': {
+                        'week-1': 'Human impact on environment',
+                        'week-2': 'Biodiversity and conservation',
+                        'week-3': 'Food webs and energy flow',
+                        'week-4': 'Biogeochemical cycles',
+                        'week-5': 'Photosynthesis overview',
+                        'week-6': 'Cellular respiration',
+                        'week-7': 'Revision: All topics',
+                        'week-8': 'Revision: All topics',
+                        'week-9': 'Revision: All topics',
+                        'week-10': 'Final assessments'
+                    }
+                }
+            }
+        };
+
+        // State management
+        let selectedPhase = null;
+        let selectedGrade = null;
+        let selectedSubject = null;
+        let selectedTerm = null;
+        let selectedWeek = null;
+        let selectedMaterialType = 'lesson';
+
+        // DOM elements
+        const phaseSelect = document.getElementById('phaseSelect');
+        const gradeSelect = document.getElementById('gradeSelect');
+        const subjectSelect = document.getElementById('subjectSelect');
+        const termSelect = document.getElementById('termSelect');
+        const weekSelect = document.getElementById('weekSelect');
+        const generateBtn = document.getElementById('generateBtn');
+        const topicPreview = document.getElementById('topicPreview');
+        const topicPreviewText = document.getElementById('topicPreviewText');
+
+        // Phase selection
+        phaseSelect.addEventListener('change', function() {
+            selectedPhase = this.value;
+            gradeSelect.disabled = !selectedPhase;
+            
+            if (selectedPhase) {
+                const phaseData = curriculumData[selectedPhase];
+                gradeSelect.innerHTML = '<option value="">Select a grade...</option>';
+                
+                Object.keys(phaseData.grades).forEach(gradeKey => {
+                    const grade = phaseData.grades[gradeKey];
+                    const option = document.createElement('option');
+                    option.value = gradeKey;
+                    option.textContent = grade.name;
+                    gradeSelect.appendChild(option);
+                });
+            }
+            
+            resetSelections(['grade', 'subject', 'term', 'week']);
+        });
+
+        // Grade selection
+        gradeSelect.addEventListener('change', function() {
+            selectedGrade = this.value;
+            subjectSelect.disabled = !selectedGrade;
+            
+            if (selectedGrade && selectedPhase) {
+                const subjects = curriculumData[selectedPhase].grades[selectedGrade].subjects;
+                subjectSelect.innerHTML = '<option value="">Select a subject...</option>';
+                
+                subjects.forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject.toLowerCase().replace(/\s+/g, '-');
+                    option.textContent = subject;
+                    subjectSelect.appendChild(option);
+                });
+            }
+            
+            resetSelections(['subject', 'term', 'week']);
+        });
+
+        // Subject selection
+        subjectSelect.addEventListener('change', function() {
+            selectedSubject = this.value;
+            termSelect.disabled = !selectedSubject;
+            
+            if (selectedSubject) {
+                termSelect.innerHTML = `
+                    <option value="">Select a term...</option>
+                    <option value="term-1">Term 1</option>
+                    <option value="term-2">Term 2</option>
+                    <option value="term-3">Term 3</option>
+                    <option value="term-4">Term 4</option>
+                `;
+            }
+            
+            resetSelections(['term', 'week']);
+        });
+
+        // Term selection
+        termSelect.addEventListener('change', function() {
+            selectedTerm = this.value;
+            weekSelect.disabled = !selectedTerm;
+            
+            if (selectedTerm) {
+                weekSelect.innerHTML = '<option value="">Select a week...</option>';
+                
+                for (let i = 1; i <= 10; i++) {
+                    const option = document.createElement('option');
+                    option.value = `week-${i}`;
+                    option.textContent = `Week ${i}`;
+                    weekSelect.appendChild(option);
+                }
+            }
+            
+            resetSelections(['week']);
+        });
+
+        // Week selection
+        weekSelect.addEventListener('change', function() {
+            selectedWeek = this.value;
+            updateTopicPreview();
+            checkGenerateButton();
+        });
+
+        // Material type selection
+        const materialTypeBtns = document.querySelectorAll('.material-type-btn');
+        const differentiationOption = document.getElementById('differentiationOption');
+        
+        materialTypeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                materialTypeBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedMaterialType = this.dataset.type;
+                
+                // Show differentiation option only for worksheets
+                if (selectedMaterialType === 'worksheet') {
+                    differentiationOption.style.display = 'block';
+                } else {
+                    differentiationOption.style.display = 'none';
+                    document.getElementById('generateMultiple').checked = false;
+                }
+            });
+        });
+
+        // Update topic preview
+        function updateTopicPreview() {
+            if (selectedSubject && selectedGrade && selectedTerm && selectedWeek) {
+                // Get subject name (capitalize first letter)
+                const subjectName = selectedSubject.split('-').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
+                
+                // Try to get ATP topic
+                let topic = 'Topic available for this selection';
+                if (atpTopics[subjectName] && atpTopics[subjectName][selectedGrade] && 
+                    atpTopics[subjectName][selectedGrade][selectedTerm] && 
+                    atpTopics[subjectName][selectedGrade][selectedTerm][selectedWeek]) {
+                    topic = atpTopics[subjectName][selectedGrade][selectedTerm][selectedWeek];
+                }
+                
+                topicPreviewText.textContent = topic;
+                topicPreview.classList.add('active');
+            } else {
+                topicPreview.classList.remove('active');
+            }
+        }
+
+        // Reset selections
+        function resetSelections(fields) {
+            if (fields.includes('grade')) {
+                gradeSelect.innerHTML = '<option value="">First select a phase...</option>';
+                gradeSelect.disabled = true;
+                selectedGrade = null;
+            }
+            if (fields.includes('subject')) {
+                subjectSelect.innerHTML = '<option value="">Select grade first...</option>';
+                subjectSelect.disabled = true;
+                selectedSubject = null;
+            }
+            if (fields.includes('term')) {
+                termSelect.innerHTML = '<option value="">Select subject first...</option>';
+                termSelect.disabled = true;
+                selectedTerm = null;
+            }
+            if (fields.includes('week')) {
+                weekSelect.innerHTML = '<option value="">Select term first...</option>';
+                weekSelect.disabled = true;
+                selectedWeek = null;
+                topicPreview.classList.remove('active');
+            }
+            checkGenerateButton();
+        }
+
+        // Check if generate button should be enabled
+        function checkGenerateButton() {
+            const allSelected = selectedPhase && selectedGrade && selectedSubject && 
+                              selectedTerm && selectedWeek;
+            generateBtn.disabled = !allSelected;
+        }
+
+        // Generate button click
+        generateBtn.addEventListener('click', function() {
+            if (this.disabled) return;
+            
+            const originalHTML = this.innerHTML;
+            this.innerHTML = '<i>⏳</i><span>Generating...</span>';
+            this.disabled = true;
+            
+            // Simulate generation
+            setTimeout(() => {
+                const materialTypes = {
+                    'lesson': 'Lesson Plan',
+                    'worksheet': 'Worksheet',
+                    'presentation': 'PowerPoint Presentation',
+                    'assessment': 'Assessment'
+                };
+                
+                const language = document.getElementById('languageSelect').value;
+                const topic = topicPreviewText.textContent;
+                const generateMultiple = document.getElementById('generateMultiple').checked;
+                
+                let message = `✅ Generated ${materialTypes[selectedMaterialType]}!\n\nPhase: ${curriculumData[selectedPhase].name}\nGrade: ${gradeSelect.options[gradeSelect.selectedIndex].text}\nSubject: ${subjectSelect.options[subjectSelect.selectedIndex].text}\nTerm: ${termSelect.options[termSelect.selectedIndex].text}\nWeek: ${weekSelect.options[weekSelect.selectedIndex].text}\nTopic: ${topic}\nLanguage: ${language}`;
+                
+                if (selectedMaterialType === 'worksheet' && generateMultiple) {
+                    message += '\n\n📚 Differentiation: 3 versions (Support, Core, Extension)';
+                }
+                
+                message += '\n\n✨ CAPS & ATP Aligned\n\nIn a real implementation, this would generate and download your material!';
+                
+                alert(message);
+                
+                this.innerHTML = originalHTML;
+                this.disabled = false;
+            }, 2000);
+        });
+
+        // Pricing toggle
+        const toggleButtons = document.querySelectorAll('.toggle-option');
+        const monthlyPrices = document.querySelectorAll('.monthly-price');
+        const yearlyPrices = document.querySelectorAll('.yearly-price');
+        const yearlyNotes = document.querySelectorAll('.yearly-note');
+        
+        toggleButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                toggleButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const period = this.dataset.period;
+                if (period === 'yearly') {
+                    monthlyPrices.forEach(p => p.style.display = 'none');
+                    yearlyPrices.forEach(p => p.style.display = 'inline');
+                    yearlyNotes.forEach(n => n.style.display = 'block');
+                } else {
+                    monthlyPrices.forEach(p => p.style.display = 'inline');
+                    yearlyPrices.forEach(p => p.style.display = 'none');
+                    yearlyNotes.forEach(n => n.style.display = 'none');
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

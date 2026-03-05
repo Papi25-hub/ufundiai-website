@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - UfundiAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #fef3c7 50%, #fce7f3 100%);
+            color: #1f2937;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            text-decoration: none;
+            font-family: 'Righteous', cursive;
+            text-transform: lowercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #10b981;
+        }
+
+        .btn-trial {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-trial:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 3rem;
+            background: white;
+            min-height: 80vh;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .faq-subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+
+        .faq-category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-item {
+            background: #f9fafb;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active {
+            background: #e0f2fe;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #111827;
+            user-select: none;
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            color: #10b981;
+            font-weight: 300;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #6b7280;
+            line-height: 1.7;
+            display: none;
+        }
+
+        .faq-footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .faq-footer-tag {
+            color: #ec4899;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-footer h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-contact {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            padding: 4rem 3rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-family: 'Righteous', cursive;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: #10b981;
+            transform: translateY(-3px);
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #10b981;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .faq-footer h3 {
+                font-size: 1.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">uFundi AI</a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#examples">Examples</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+            <button class="btn-trial" onclick="window.location.href='signup.html'">Try for FREE</button>
+        </div>
+    </nav>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="faq-subtitle">Everything you need to know about using UfundiAI 💡</p>
+
+            <div class="faq-category">
+                <h3 class="faq-category-title">Getting started</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does UfundiAI work?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>UfundiAI uses advanced AI to generate CAPS and ATP-aligned teaching materials. Simply select your phase, grade, subject, term, and week from our structured dropdowns, then choose what type of material you need (lesson plan, worksheet, PPT, or assessment). The AI creates professional, curriculum-compliant materials in seconds!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is it easy to get started with UfundiAI?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! Just sign up, select your grade and subject, and you can start generating materials immediately. No training needed - our intuitive interface guides you through every step.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can we try UfundiAI before subscribing?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Our Free plan lets you create 5 resources every week with no credit card required. Try it out and upgrade when you're ready.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h3 class="faq-category-title">Features & planning</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is UfundiAI suitable for all teaching staff?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! UfundiAI works for all grades (R-12) and all CAPS subjects. Whether you're a foundation phase teacher or FET specialist, we've got you covered.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How much time does UfundiAI save teachers?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Teachers report saving 10-15 hours per week on lesson planning and material preparation. What used to take hours now takes minutes!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can UfundiAI adapt lessons for different student needs?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! You can customize the complexity level and topic focus to match your learners' needs. For worksheets, you can even generate multiple versions for differentiation (Support, Core, Extension levels).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h3 class="faq-category-title">Curriculum support</h3>
+                
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <span>Is UfundiAI curriculum-aligned?</span>
+                        <span class="faq-icon">−</span>
+                    </div>
+                    <div class="faq-answer" style="display: block;">
+                        <p>100% yes! Every material generated is aligned with the official CAPS curriculum and follows the Annual Teaching Plan (ATP) week-by-week structure. We ensure complete compliance with DBE requirements.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What grades/years and subjects are supported by UfundiAI?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We support all grades from Grade R through Grade 12, covering all CAPS subjects including Mathematics, Languages, Natural Sciences, Social Sciences, Life Sciences, Physical Sciences, and more.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h3 class="faq-category-title">Pricing & trials</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What does UfundiAI cost?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer three plans: Free (R0 - 5 resources/week), Pro (R79/month - 200 resources/month), and Schools (custom pricing for institutions). See our <a href="pricing.html" style="color: #10b981; font-weight: 600;">Pricing page</a> for full details.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What's included in UfundiAI Pro?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pro includes 200 resources/month, curriculum alignment, lesson series up to 12 lessons, presentations up to 25 slides, removal of UfundiAI branding, YouTube video integration, and all 11 SA languages.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there a free version of UfundiAI for teachers?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Our Free plan is completely free forever. Create 5 resources every week with no credit card required. Perfect for trying out the platform.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I cancel my subscription anytime?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! You can cancel your subscription at any time with no penalties. You'll continue to have access until the end of your billing period.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h3 class="faq-category-title">Security & compliance</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is UfundiAI secure and data compliant?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. We use industry-standard encryption and follow POPIA compliance guidelines. Your data is stored securely and never shared with third parties.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Does UfundiAI store student data?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No. UfundiAI only stores the teaching materials you generate. We don't collect or store any student information or personal data about learners.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-footer">
+                <p class="faq-footer-tag">Still have questions?</p>
+                <h3>We'd love to hear from you</h3>
+                <button class="btn-contact" onclick="window.location.href='mailto:support@ufundiai.com'">Get in touch</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>uFundi AI</h3>
+                <p>AI-powered CAPS & ATP aligned lesson planning for South African teachers. Save hours every week.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="ai-limitations.html">AI Limitations & Best Practices</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Video Tutorials</a></li>
+                    <li><a href="#">ATP Guide</a></li>
+                    <li><a href="#">Languages</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 uFundi AI. Made with love for South African teachers.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('.faq-icon');
+            
+            question.addEventListener('click', function() {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQs
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.faq-answer').style.display = 'none';
+                    otherItem.querySelector('.faq-icon').textContent = '+';
+                });
+                
+                // Toggle current FAQ
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.display = 'block';
+                    icon.textContent = '−';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
